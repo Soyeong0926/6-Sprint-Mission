@@ -1,12 +1,11 @@
-
 import './App.css'
 import styled from 'styled-components'; 
-import logo from './assets/logo.svg';
-
+import logo from './assets/logo.svg'
+import Items from './items';
 
 
 const MainHeader = styled.header`
-  border: 1px solid red;
+  border-bottom: 1px solid #DFDFDF;
   width: 1920px;
   height: 70px;
   display: flex;
@@ -65,7 +64,8 @@ function App() {
             <NavMenuSecond><NavLink href="/items">중고마켓</NavLink></NavMenuSecond>
           </NavUl>
        </Navigation>
-     </MainHeader> 
+     </MainHeader>
+    <Items></Items>
     </>
   )
 }
