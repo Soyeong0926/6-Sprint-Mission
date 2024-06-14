@@ -1,23 +1,21 @@
 import { useState } from 'react';
 import styled from "styled-components";
-import IpadMini from './assets/ipad-mini.png'
 import Book from './assets/book.png'
-import WashingMachine from './assets/washing-machine.png'
-import Oven from './assets/oven.png'
+import Robot from './assets/robot.png'
 
 
+// 베스트 상품
 const Main = styled.main`
 `
 
 const Container = styled.div`
   width: 1201px;
   height: 1154px;
-  border: 1px solid blue;
   margin: 24px auto;
 `
 
 const ItemTitle = styled.div`
-  width: 94px;
+  width: 150px;
   height: 28px;
   font-family: Pretendard;
   font-size: 20px;
@@ -26,28 +24,20 @@ const ItemTitle = styled.div`
   margin-bottom: 16px;
 `
 
+const ItemsArray = styled.div`
+  
+`
+
 const ItemList = styled.figure`
   width: 1200px;
-  height: 282px;
+  height: 406px;
   margin: 0 auto;
   display: flex;
   gap: 24px;
 `
-
 const ItemCard = styled.img`
   width: 282px;
   height: 282px;
-`
-
-const PostGroup = styled.div`
-  display: flex;
-  gap: 24px;
-`
-
-const Post = styled.div`
-  width: 282px;
-  height: 64px;
-  margin-top: 16px;
 `
 
 const PostTitle = styled.h4`
@@ -61,7 +51,7 @@ const PostTitle = styled.h4`
 `
 
 const Price = styled.div`
-  width: 81px;
+  width: 282px;
   height: 19px;
   font-size: 16px;
   font-weight: 700;
@@ -93,6 +83,53 @@ const Count = styled.span`
   font-family: Pretendard;
 `
 
+
+// 판매 중
+
+const SellingItemTitle = styled.div`
+  width: 150px;
+  height: 28px;
+  font-family: Pretendard;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 28px;
+  margin-bottom: 24px;
+`
+
+const SellingItemCard = styled.img`
+  width: 221px;
+  height: 221px;
+`
+
+const SellingItemsArray = styled.div`
+  width: 221px;
+  height: 221px;
+`
+
+const SellingItemList = styled.figure`
+  width: 1200px;
+  height: 300px;
+  gap: 24px;
+  margin: 0 auto;
+  display: flex;
+  margin-bottom: 40px;
+`
+
+const itemsData = [
+  { id: 1, title: '아이패드 미니 팝니다', price: '500,000원', alt: '아이패드 미니 사진' },
+  { id: 2, title: '책 팝니다', price: '50,000원', alt: '책 사진' },
+  { id: 3, title: '세탁기 팝니다', price: '500,000원', alt: '세탁기 사진' },
+  { id: 4, title: '오븐 팝니다', price: '300,000원', alt: '오븐 사진' },
+];
+
+const sellingItemsData = [
+  { id: 1, title: '로봇 청소기', price: '1,500,000원' },
+  { id: 2, title: '청소 도구 팔아요', price: '5,000원' },
+  { id: 3, title: '섀도우 팔레트', price: '20,000원' },
+  { id: 4, title: '맥북 팝니다 m1칩 13인치', price: '200,000원' },
+  { id: 5, title: '재킷 팝니다', price: '50,000원' },
+];
+
 const Items = () => {
   const [count, setCount] = useState(0);
   const handleClick = () => {
@@ -103,46 +140,55 @@ const Items = () => {
       <Container>
         <ItemTitle>베스트 상품</ItemTitle>
         <ItemList>
-          <ItemCard src={IpadMini}></ItemCard>
-          <ItemCard src={Book}></ItemCard>
-          <ItemCard src={WashingMachine}></ItemCard>
-          <ItemCard src={Oven}></ItemCard>
+        {itemsData.map(item => (
+            <ItemsArray key={item.id}>
+              <ItemCard src= {Book} alt={item.alt} />
+              <PostTitle>{item.title}</PostTitle>
+              <Price>{item.price}</Price>
+              <CountLike>
+                <LikeButton onClick={() => handleClick(item.id)}>
+                  {count[item.id] === 0 ? '♡' : '♥'} 
+                </LikeButton> 
+                <Count>{count[item.id] || 0}</Count>
+              </CountLike>
+            </ItemsArray>
+          ))}
         </ItemList>
-        <PostGroup>
-        <Post>
-          <PostTitle>아이패드 미니 팝니다</PostTitle>
-          <Price>500,000원</Price>
-          <CountLike>
-            <LikeButton onClick={handleClick}>{count === 0 ? '♡' : '♥'} </LikeButton> 
-            <Count>{count}</Count>
-          </CountLike>
-        </Post>
-        <Post>
-          <PostTitle>책 팝니다</PostTitle>
-          <Price>50,000원</Price>
-          <CountLike>
-            <LikeButton onClick={handleClick}>{count === 0 ? '♡' : '♥'} </LikeButton> 
-            <Count>{count}</Count>
-          </CountLike>
-        </Post>
-        <Post>
-          <PostTitle>세탁기 팝니다</PostTitle>
-          <Price>500,000원</Price>
-          <CountLike>
-            <LikeButton onClick={handleClick}>{count === 0 ? '♡' : '♥'} </LikeButton> 
-            <Count>{count}</Count>
-          </CountLike>
-        </Post>
-        <Post>
-          <PostTitle>오븐 팝니다</PostTitle>
-          <Price>300,000원</Price>
-          <CountLike>
-            <LikeButton onClick={handleClick}>{count === 0 ? '♡' : '♥'} </LikeButton> 
-            <Count>{count}</Count>
-          </CountLike>
-        </Post>
-        </PostGroup>
-      </Container>
+
+        <SellingItemTitle>판매 중인 상품</SellingItemTitle>
+        <SellingItemList>
+        {sellingItemsData.map(item => (
+            <SellingItemsArray key={item.id}>
+              <SellingItemCard src= {Robot} alt={item.alt} />
+              <PostTitle>{item.title}</PostTitle>
+              <Price>{item.price}</Price>
+              <CountLike>
+                <LikeButton onClick={() => handleClick(item.id)}>
+                  {count[item.id] === 0 ? '♡' : '♥'} 
+                </LikeButton> 
+                <Count>{count[item.id] || 0}</Count>
+              </CountLike>
+            </SellingItemsArray>
+          ))}
+        </SellingItemList>
+
+        <SellingItemList>
+        {sellingItemsData.map(item => (
+            <SellingItemsArray key={item.id}>
+              <SellingItemCard src= {Robot} alt={item.alt} />
+              <PostTitle>{item.title}</PostTitle>
+              <Price>{item.price}</Price>
+              <CountLike>
+                <LikeButton onClick={() => handleClick(item.id)}>
+                  {count[item.id] === 0 ? '♡' : '♥'} 
+                </LikeButton> 
+                <Count>{count[item.id] || 0}</Count>
+              </CountLike>
+            </SellingItemsArray>
+          ))}
+        </SellingItemList>
+
+      </Container> 
       </Main>
   );
 };
